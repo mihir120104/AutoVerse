@@ -49,4 +49,5 @@ class AuthService:
         return {
             "access_token": token,
             "token_type": "bearer",
+            "role": "admin" if user.is_admin else "user",
         }

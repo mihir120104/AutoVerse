@@ -8,6 +8,7 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 
+import { toast } from "sonner";
 import VehicleForm from "./VehicleForm";
 import { createVehicle } from "../../services/vehicleService";
 
@@ -24,12 +25,10 @@ export default function AddVehicleDialog({
 
             setOpen(false);
 
-            // alert("Vehicle Added Successfully");
-            console.log("Vehicle Added Successfully");
+            toast.success("Vehicle added successfully ! ");
         } catch (error) {
             console.error(error);
-            // alert("Failed to add vehicle");
-            console.error("Failed to add vehicle");
+            toast.error("Failed to add vehicle.");
         }
     }
 

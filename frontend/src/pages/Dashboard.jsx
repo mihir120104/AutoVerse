@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { Car, ShoppingCart, IndianRupee, AlertTriangle } from "lucide-react";
 
+import StatsCards from "../components/dashboard/StatsCards";
+import RecentPurchases from "../components/dashboard/RecentPurchases";
+import LowStockVehicles from "../components/dashboard/LowStockVehicles";
+import RevenueChart from "../components/dashboard/RevenueChart";
+import CategoryChart from "../components/dashboard/CategoryChart";
 import { getDashboardStats } from "../services/dashboardService";
+import { getVehicles } from "../services/vehicleService";
+import { getPurchases } from "../services/purchaseService";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -11,97 +17,90 @@ export default function Dashboard() {
     low_stock: 0,
   });
 
+  const [vehicles, setVehicles] = useState([]);
+  const [purchases, setPurchases] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadDashboard() {
-      try {
-        const data = await getDashboardStats();
-        setStats(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
     loadDashboard();
   }, []);
 
-  const cards = [
-    {
-      title: "Total Vehicles",
-      value: stats.total_vehicles,
-      icon: Car,
-    },
-    {
-      title: "Purchases",
-      value: stats.total_purchases,
-      icon: ShoppingCart,
-    },
-    {
-      title: "Revenue",
-      value: `₹ ${stats.total_revenue.toLocaleString()}`,
-      icon: IndianRupee,
-    },
-    {
-      title: "Low Stock",
-      value: stats.low_stock,
-      icon: AlertTriangle,
-    },
-  ];
+  async function loadDashboard() {
+    try {
+      const [
+        dashboard,
+        vehicleData,
+        purchaseData,
+      ] = await Promise.all([
+        getDashboardStats(),
+        getVehicles(),
+        getPurchases(),
+      ]);
+
+      setStats(dashboard);
+      setVehicles(vehicleData);
+      setPurchases(purchaseData);
+
+    } catch (error) {
+      console.error("Dashboard Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (loading) {
     return (
-      <div className="text-white text-xl">
-        Loading Dashboard...
+      <div className="flex h-[70vh] items-center justify-center">
+        <div className="text-xl font-semibold text-white">
+          Loading Dashboard...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
+
+      {/* Header */}
 
       <div>
-        <h1 className="text-4xl font-bold text-white">
+
+        <h1 className="text-3xl font-bold text-white sm:text-4xl">
           Dashboard
         </h1>
 
-        <p className="text-slate-400 mt-2">
-          Real-time dealership overview
+        <p className="mt-2 text-slate-400">
+          Welcome back! Here's your dealership overview.
         </p>
+
       </div>
 
-      <div className="grid grid-cols-4 gap-6">
+      {/* KPI Cards */}
 
-        {cards.map((card) => {
-          const Icon = card.icon;
+      <StatsCards stats={stats} />
 
-          return (
-            <div
-              key={card.title}
-              className="bg-slate-900 rounded-xl p-6 border border-slate-800"
-            >
-              <div className="flex justify-between items-center">
+      {/* Dashboard Widgets */}
 
-                <div>
-                  <p className="text-slate-400">
-                    {card.title}
-                  </p>
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
-                  <h2 className="text-3xl font-bold text-white mt-3">
-                    {card.value}
-                  </h2>
-                </div>
+        <RevenueChart
+          purchases={purchases}
+          vehicles={vehicles}
+        />
 
-                <Icon
-                  className="text-cyan-400"
-                  size={34}
-                />
-              </div>
-            </div>
-          );
-        })}
+        <CategoryChart
+          vehicles={vehicles}
+        />
+
+        <RecentPurchases
+          purchases={purchases}
+          vehicles={vehicles}
+        />
+
+        <LowStockVehicles
+          vehicles={vehicles}
+        />
 
       </div>
 

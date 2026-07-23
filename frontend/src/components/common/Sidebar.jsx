@@ -4,6 +4,7 @@ import {
   ShoppingCart,
   BarChart3,
   Settings,
+  X,
 } from "lucide-react";
 
 import { NavLink } from "react-router-dom";
@@ -29,22 +30,35 @@ const menus = [
   {
     name: "Analytics",
     icon: BarChart3,
-    path: "#",
+    path: "/analytics",
   },
   {
     name: "Settings",
     icon: Settings,
-    path: "#",
-  },
+    path: "/settings",
+  }
 ];
 
-export default function Sidebar() {
+export default function Sidebar({
+  open,
+  setOpen,
+}) {
   return (
-    <aside className="w-72 border-r border-slate-800 bg-slate-900 p-6">
+    <aside className="flex h-full w-72 flex-col border-r border-slate-800 bg-slate-900 p-6">
+      <div className="mb-6 flex items-center justify-between lg:block">
 
-      <Logo />
+        <Logo />
 
-      <nav className="mt-10 space-y-2">
+        <button
+          className="lg:hidden"
+          onClick={() => setOpen(false)}
+        >
+          <X />
+        </button>
+
+      </div>
+
+      <nav className="space-y-2">
 
         {menus.map((item) => {
 
@@ -54,11 +68,11 @@ export default function Sidebar() {
             <NavLink
               key={item.name}
               to={item.path}
+              onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-4 py-3 transition ${
-                  isActive
-                    ? "bg-cyan-500 text-black font-semibold"
-                    : "text-slate-300 hover:bg-slate-800"
+                `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                  ? "bg-cyan-500 font-semibold text-black"
+                  : "text-slate-300 hover:bg-slate-800"
                 }`
               }
             >
@@ -69,6 +83,7 @@ export default function Sidebar() {
             </NavLink>
           );
         })}
+
       </nav>
 
     </aside>

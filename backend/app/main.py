@@ -37,6 +37,6 @@ app.include_router(dashboard_router)
 @app.get("/")
 def root():
     return {
-        "message": "Welcome to AutoVerse API 🚗",
+        "message": "Welcome to AutoVerse API ",
         "version": "1.0.0",
     }

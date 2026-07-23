@@ -1,58 +1,70 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "../ui/dialog";
 
+import { toast } from "sonner";
 import VehicleForm from "./VehicleForm";
 import { updateVehicle } from "../../services/vehicleService";
 
 export default function EditVehicleDialog({
-  vehicle,
-  onUpdated,
+    vehicle,
+    onUpdated,
 }) {
-  const [open, setOpen] = useState(false);
-  const [initialValues, setInitialValues] = useState(vehicle);
+    const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    setInitialValues(vehicle);
-  }, [vehicle]);
+    async function handleSubmit(data) {
+        try {
 
-  async function handleSubmit(data) {
-    try {
-      await updateVehicle(vehicle.id, data);
+            await updateVehicle(vehicle.id, data);
 
-      console.log("Vehicle Updated Successfully");
+            // toast.success("Vehicle updated successfully ! ");
+            alert("Vehicle Updated Successfully !");
+            setOpen(false);
 
-      setOpen(false);
+            onUpdated();
 
-      onUpdated();
-    } catch (error) {
-      console.error(error);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update vehicle");
+        }
     }
-  }
 
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="rounded bg-yellow-500 px-3 py-2 text-sm font-semibold text-black hover:bg-yellow-400">
-        Edit
-      </DialogTrigger>
+    return (
+        <Dialog
+            open={open}
+            onOpenChange={setOpen}
+        >
 
-      <DialogContent className="max-w-2xl bg-slate-900 text-white">
-        <DialogHeader>
-          <DialogTitle>Edit Vehicle</DialogTitle>
-        </DialogHeader>
+            <DialogTrigger
+                className="rounded bg-yellow-500 px-3 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+            >
+                Edit
+            </DialogTrigger>
 
-        <VehicleForm
-          initialValues={initialValues}
-          submitText="Update Vehicle"
-          onSubmit={handleSubmit}
-        />
-      </DialogContent>
-    </Dialog>
-  );
+            <DialogContent className="max-w-2xl bg-slate-900 text-white">
+
+                <DialogHeader>
+
+                    <DialogTitle>
+                        Edit Vehicle
+                    </DialogTitle>
+
+                </DialogHeader>
+
+                <VehicleForm
+                    initialValues={vehicle}
+                    submitText="Update Vehicle"
+                    onSubmit={handleSubmit}
+                />
+
+            </DialogContent>
+
+        </Dialog>
+    );
 }
