@@ -319,28 +319,47 @@ http://localhost:5173
 
 ---
 
-# 📷 Screenshots
+# 📸 Screenshots
 
-Add screenshots here before submission.
+## Login
 
-```
-screenshots/
+![Login](screenshots/login.png)
 
-├── login.png
+---
 
-├── dashboard.png
+## Dashboard
 
-├── inventory.png
+![Dashboard](screenshots/dashboard.png)
 
-├── purchases.png
+---
 
-├── analytics.png
+## Inventory
 
-├── settings.png
+![Inventory](screenshots/inventory.png)
 
-└── mobile.png
-```
+---
 
+## Purchases
+
+![Purchases](screenshots/purchases.png)
+
+---
+
+## Analytics
+
+![Analytics](screenshots/analytics.png)
+
+---
+
+## Settings
+
+![Settings](screenshots/settings.png)
+
+---
+
+## Mobile Responsive
+
+![Mobile](screenshots/mobile-dashboard.png)
 ---
 
 # 🧪 Testing
