@@ -412,6 +412,7 @@ GitHub: https://github.com/mihir120104
 LinkedIn: https://www.linkedin.com/in/mihir-patel-138ab7260/
 
 Portfolio: https://mihirspatel.vercel.app/
+
 ---
 
 <div align="center">
