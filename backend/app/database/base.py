@@ -7,3 +7,5 @@ class Base(DeclarativeBase):
 
 # Import models here
 from app.models.user import User
+from app.models.vehicle import Vehicle
+from app.models.purchase import Purchase
