@@ -1,49 +1,58 @@
 import { useEffect, useState } from "react";
 import VehicleTable from "../components/VehicleTable";
 import { getVehicles } from "../services/vehicleService";
+import AddVehicleDialog from "../components/inventory/AddVehicleDialog";
 
 export default function Inventory() {
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [vehicles, setVehicles] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadVehicles();
-  }, []);
+    useEffect(() => {
+        fetchVehicles();
+    }, []);
 
-  async function loadVehicles() {
-    try {
-      const data = await getVehicles();
-      setVehicles(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    async function fetchVehicles() {
+        try {
+            const data = await getVehicles();
+            setVehicles(data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     }
-  }
 
-  if (loading) {
+    if (loading) {
+        return (
+            <div className="text-white text-xl">
+                Loading Vehicles...
+            </div>
+        );
+    }
+
     return (
-      <div className="text-white text-xl">
-        Loading Vehicles...
-      </div>
+        <div className="space-y-8">
+
+            <div className="flex items-center justify-between">
+
+                <div>
+                    <h1 className="text-4xl font-bold text-white">
+                        Vehicle Inventory
+                    </h1>
+
+                    <p className="mt-2 text-slate-400">
+                        Manage all dealership vehicles.
+                    </p>
+                </div>
+
+                <AddVehicleDialog
+                    onVehicleAdded={fetchVehicles}
+                />
+
+            </div>
+
+            <VehicleTable vehicles={vehicles} />
+
+        </div>
     );
-  }
-
-  return (
-    <div className="space-y-8">
-
-      <div>
-        <h1 className="text-4xl font-bold text-white">
-          Vehicle Inventory
-        </h1>
-
-        <p className="text-slate-400 mt-2">
-          Manage all dealership vehicles.
-        </p>
-      </div>
-
-      <VehicleTable vehicles={vehicles} />
-
-    </div>
-  );
 }
