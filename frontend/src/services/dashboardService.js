@@ -1,10 +1,6 @@
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
-});
+import api from "../api/axios";
 
 export const getDashboardStats = async () => {
-  const response = await API.get("/dashboard");
+  const response = await api.get("/dashboard");
   return response.data;
 };

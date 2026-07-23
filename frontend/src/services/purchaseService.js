@@ -1,15 +1,11 @@
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
-});
+import api from "../api/axios";
 
 export const getPurchases = async () => {
-  const response = await API.get("/purchases");
+  const response = await api.get("/purchases");
   return response.data;
 };
 
 export const purchaseVehicle = async (payload) => {
-    const response = await API.post("/purchases", payload);
-    return response.data;
+  const response = await api.post("/purchases", payload);
+  return response.data;
 };
