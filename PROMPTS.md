@@ -1367,6 +1367,6 @@ All generated content was manually reviewed, modified, tested, and integrated by
 
 **Developer:** Mihir Patel
 
-I used Generative AI as a software development assistant during the implementation of this project. AI was primarily used to accelerate learning, explore implementation approaches, review code, assist with debugging, and improve documentation.
+I used Generative AI as a software development assistant during the implementation of this project. AI was primarily used to accelerate learning, explore implementation approaches, review code, assist with debugging and improve documentation.
 
-Every code change, architectural decision, and final implementation was manually reviewed, tested, and integrated by me before submission.
+Every code change, architectural decision and final implementation was manually reviewed, tested and integrated by me before submission.

@@ -411,12 +411,7 @@ GitHub: https://github.com/mihir120104
 
 LinkedIn: https://www.linkedin.com/in/mihir-patel-138ab7260/
 
----
-
-# 📄 License
-
-This project was developed as part of an academic Full Stack Development assignment and is intended for educational purposes.
-
+Portfolio: https://mihirspatel.vercel.app/
 ---
 
 <div align="center">
