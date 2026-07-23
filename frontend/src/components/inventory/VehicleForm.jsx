@@ -1,24 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function VehicleForm({
   initialValues,
   onSubmit,
   submitText = "Save Vehicle",
 }) {
-  const [form, setForm] = useState(
-    initialValues || {
-      make: "",
-      model: "",
-      category: "",
-      year: "",
-      fuel_type: "",
-      transmission: "",
-      price: "",
-      quantity: "",
-      image_url: "",
-      description: "",
-    }
-  );
+  const emptyForm = {
+    make: "",
+    model: "",
+    category: "",
+    year: "",
+    fuel_type: "",
+    transmission: "",
+    price: "",
+    quantity: "",
+    image_url: "",
+    description: "",
+  };
+
+  const [form, setForm] = useState(initialValues || emptyForm);
+
+  useEffect(() => {
+    setForm(initialValues || emptyForm);
+  }, [initialValues]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -50,27 +54,27 @@ export default function VehicleForm({
     >
       <input
         name="make"
-        placeholder="Make"
         value={form.make}
         onChange={handleChange}
+        placeholder="Make"
         className={inputClass}
         required
       />
 
       <input
         name="model"
-        placeholder="Model"
         value={form.model}
         onChange={handleChange}
+        placeholder="Model"
         className={inputClass}
         required
       />
 
       <input
         name="category"
-        placeholder="Category"
         value={form.category}
         onChange={handleChange}
+        placeholder="Category"
         className={inputClass}
         required
       />
@@ -78,35 +82,35 @@ export default function VehicleForm({
       <input
         type="number"
         name="year"
-        placeholder="Year"
         value={form.year}
         onChange={handleChange}
+        placeholder="Year"
         className={inputClass}
         required
       />
 
       <input
         name="fuel_type"
-        placeholder="Fuel Type"
         value={form.fuel_type}
         onChange={handleChange}
+        placeholder="Fuel Type"
         className={inputClass}
       />
 
       <input
         name="transmission"
-        placeholder="Transmission"
         value={form.transmission}
         onChange={handleChange}
+        placeholder="Transmission"
         className={inputClass}
       />
 
       <input
         type="number"
         name="price"
-        placeholder="Price"
         value={form.price}
         onChange={handleChange}
+        placeholder="Price"
         className={inputClass}
         required
       />
@@ -114,32 +118,32 @@ export default function VehicleForm({
       <input
         type="number"
         name="quantity"
-        placeholder="Quantity"
         value={form.quantity}
         onChange={handleChange}
+        placeholder="Quantity"
         className={inputClass}
         required
       />
 
       <input
         name="image_url"
-        placeholder="Image URL"
         value={form.image_url}
         onChange={handleChange}
+        placeholder="Image URL"
         className={inputClass}
       />
 
       <textarea
         name="description"
-        placeholder="Description"
         value={form.description}
         onChange={handleChange}
+        placeholder="Description"
         className="min-h-28 w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-white outline-none focus:border-cyan-500"
       />
 
       <button
         type="submit"
-        className="w-full rounded-lg bg-cyan-500 py-3 font-semibold text-black transition hover:bg-cyan-400"
+        className="w-full rounded-lg bg-cyan-500 py-3 font-semibold text-black hover:bg-cyan-400"
       >
         {submitText}
       </button>

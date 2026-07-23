@@ -51,7 +51,10 @@ export default function Inventory() {
 
             </div>
 
-            <VehicleTable vehicles={vehicles} />
+            <VehicleTable
+                vehicles={vehicles}
+                onRefresh={fetchVehicles}
+            />
 
         </div>
     );
